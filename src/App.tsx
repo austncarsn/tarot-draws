@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, Link, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion, MotionConfig } from 'motion/react';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import { CelestialBackground } from './components/CelestialBackground';
 import { Navigation } from './components/Navigation';
 import { Hero } from './components/Hero';
@@ -314,6 +315,7 @@ const TarotApp: React.FC = () => {
 
 export default function App() {
   return (
+    <ErrorBoundary>
     <Router>
       <Routes>
         <Route path="/" element={<TarotApp />} />
@@ -322,6 +324,7 @@ export default function App() {
         <Route path="/contact" element={<PageWrapper><ContactPage /></PageWrapper>} />
       </Routes>
     </Router>
+    </ErrorBoundary>
   );
 }
 

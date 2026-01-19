@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'motion/react';
 import { Mail, MessageCircle, Clock, Star } from 'lucide-react';
 
 interface ContactPageProps {

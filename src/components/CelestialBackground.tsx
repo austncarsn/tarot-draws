@@ -146,8 +146,8 @@ export const CelestialBackground: React.FC<CelestialBackgroundProps> = ({ theme 
                   opacity: { duration: star.duration, repeat: Infinity, ease: "easeInOut", delay: star.baseDelay },
                   scale: { duration: star.duration, repeat: Infinity, ease: "easeInOut", delay: star.baseDelay }
                 }}
+                className="absolute will-change-transform"
                 style={{
-                  position: 'absolute',
                   width: star.size,
                   height: star.size,
                   top: star.top,
@@ -185,8 +185,8 @@ export const CelestialBackground: React.FC<CelestialBackgroundProps> = ({ theme 
                   y: { duration: particle.duration * 2, repeat: Infinity, ease: "linear", delay: particle.baseDelay },
                   x: { duration: particle.duration, repeat: Infinity, ease: "easeInOut", delay: particle.baseDelay },
                 }}
+                className="absolute will-change-transform"
                 style={{
-                  position: 'absolute',
                   width: particle.size * 1.5,
                   height: particle.size * 1.5,
                   top: particle.top,
@@ -204,7 +204,7 @@ export const CelestialBackground: React.FC<CelestialBackgroundProps> = ({ theme 
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120vw] h-[120vw] md:w-[900px] md:h-[900px]">
         {/* Outer Ring */}
         <motion.div 
-          className="absolute inset-0 rounded-full border border-accent/15"
+          className="absolute inset-0 rounded-full border border-accent/15 will-change-transform"
           animate={{ rotate: 360 }}
           transition={{ duration: 120, repeat: Infinity, ease: "linear" }}
         >
@@ -212,7 +212,7 @@ export const CelestialBackground: React.FC<CelestialBackgroundProps> = ({ theme 
           {[0, 90, 180, 270].map((angle) => (
             <motion.div
               key={`dot-outer-${angle}`}
-              className="absolute w-3 h-3 rounded-full bg-accent shadow-lg"
+              className="absolute w-3 h-3 rounded-full bg-accent shadow-lg will-change-transform"
               style={{
                 top: '50%',
                 left: '50%',
@@ -234,14 +234,14 @@ export const CelestialBackground: React.FC<CelestialBackgroundProps> = ({ theme 
 
         {/* Middle Ring */}
         <motion.div 
-          className="absolute inset-[15%] md:inset-[80px] rounded-full border border-secondary/20"
+          className="absolute inset-[15%] md:inset-[80px] rounded-full border border-secondary/20 will-change-transform"
           animate={{ rotate: -360 }}
           transition={{ duration: 150, repeat: Infinity, ease: "linear" }}
         />
 
         {/* Inner Ring */}
         <motion.div 
-          className="absolute inset-[30%] md:inset-[160px] rounded-full border border-primary/10"
+          className="absolute inset-[30%] md:inset-[160px] rounded-full border border-primary/10 will-change-transform"
           animate={{ rotate: 360 }}
           transition={{ duration: 180, repeat: Infinity, ease: "linear" }}
         >

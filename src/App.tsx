@@ -325,42 +325,20 @@ export default function App() {
     <Router>
       <Routes>
         <Route path="/" element={<TarotApp />} />
-        <Route path="/about" element={<AboutPageWrapper />} />
-        <Route path="/privacy" element={<PrivacyPageWrapper />} />
-        <Route path="/contact" element={<ContactPageWrapper />} />
+        <Route path="/about" element={<PageWrapper><AboutPage /></PageWrapper>} />
+        <Route path="/privacy" element={<PageWrapper><PrivacyPage /></PageWrapper>} />
+        <Route path="/contact" element={<PageWrapper><ContactPage /></PageWrapper>} />
       </Routes>
     </Router>
   );
 }
 
-// Page wrappers to maintain theme consistency
-const AboutPageWrapper: React.FC = () => {
-  const { theme, switchTheme } = useThemeTransition('dark');
-  const [reduceMotion] = useReducedMotion();
-  
-  return (
-    <div className={`min-h-screen theme-transition-enabled font-sans selection:bg-accent/30 relative overflow-hidden bg-background text-foreground ${theme}`}>
-      <CelestialBackground theme={theme} />
-      <div className="relative z-10">
-        <Navigation 
-          theme={theme}
-          setTheme={switchTheme}
-          spreadType="single"
-          setSpreadType={() => {}}
-          reversals={false}
-          setReversals={() => {}}
-          reduceMotion={reduceMotion}
-          setReduceMotion={() => {}}
-          currentPage="home"
-          setCurrentPage={() => {}}
-        />
-        <AboutPage theme={theme} />
-      </div>
-    </div>
-  );
-};
+// Reusable page wrapper for static pages with theme support
+interface PageWrapperProps {
+  children: React.ReactElement<{ theme?: 'dark' | 'light' }>;
+}
 
-const PrivacyPageWrapper: React.FC = () => {
+const PageWrapper: React.FC<PageWrapperProps> = ({ children }) => {
   const { theme, switchTheme } = useThemeTransition('dark');
   const [reduceMotion] = useReducedMotion();
   
@@ -380,33 +358,7 @@ const PrivacyPageWrapper: React.FC = () => {
           currentPage="home"
           setCurrentPage={() => {}}
         />
-        <PrivacyPage theme={theme} />
-      </div>
-    </div>
-  );
-};
-
-const ContactPageWrapper: React.FC = () => {
-  const { theme, switchTheme } = useThemeTransition('dark');
-  const [reduceMotion] = useReducedMotion();
-  
-  return (
-    <div className={`min-h-screen theme-transition-enabled font-sans selection:bg-accent/30 relative overflow-hidden bg-background text-foreground ${theme}`}>
-      <CelestialBackground theme={theme} />
-      <div className="relative z-10">
-        <Navigation 
-          theme={theme}
-          setTheme={switchTheme}
-          spreadType="single"
-          setSpreadType={() => {}}
-          reversals={false}
-          setReversals={() => {}}
-          reduceMotion={reduceMotion}
-          setReduceMotion={() => {}}
-          currentPage="home"
-          setCurrentPage={() => {}}
-        />
-        <ContactPage theme={theme} />
+        {React.cloneElement(children, { theme })}
       </div>
     </div>
   );

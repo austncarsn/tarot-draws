@@ -167,7 +167,8 @@ const TarotApp: React.FC = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="min-h-screen flex flex-col items-center justify-center px-4 py-24 relative z-30 bg-background/80 backdrop-blur-sm"
+              style={{ minHeight: 'calc(100vh - 5rem)' }}
+              className="flex flex-col items-center justify-start pt-16 md:pt-24 pb-8 px-4 relative z-30"
             >
               <div className="text-center mb-8 md:mb-12">
                 <h2 className="text-xl md:text-2xl font-serif mb-2 text-foreground">Focus your energy</h2>
@@ -176,7 +177,7 @@ const TarotApp: React.FC = () => {
                 </p>
               </div>
 
-              <div className={`flex flex-wrap justify-center gap-6 md:gap-12`}>
+              <div className={`flex flex-wrap justify-center gap-4 md:gap-12`}>
                 {drawnCards.map((data, idx) => (
                   <div key={idx} className="flex flex-col items-center">
                     {spreadType === 'triple' && (

@@ -341,19 +341,21 @@ const AboutPageWrapper: React.FC = () => {
   return (
     <div className={`min-h-screen theme-transition-enabled font-sans selection:bg-accent/30 relative overflow-hidden bg-background text-foreground ${theme}`}>
       <CelestialBackground theme={theme} />
-      <Navigation 
-        theme={theme}
-        setTheme={switchTheme}
-        spreadType="single"
-        setSpreadType={() => {}}
-        reversals={false}
-        setReversals={() => {}}
-        reduceMotion={reduceMotion}
-        setReduceMotion={() => {}}
-        currentPage="home"
-        setCurrentPage={() => {}}
-      />
-      <AboutPage theme={theme} />
+      <div className="relative z-10">
+        <Navigation 
+          theme={theme}
+          setTheme={switchTheme}
+          spreadType="single"
+          setSpreadType={() => {}}
+          reversals={false}
+          setReversals={() => {}}
+          reduceMotion={reduceMotion}
+          setReduceMotion={() => {}}
+          currentPage="home"
+          setCurrentPage={() => {}}
+        />
+        <AboutPage theme={theme} />
+      </div>
     </div>
   );
 };
@@ -365,19 +367,21 @@ const PrivacyPageWrapper: React.FC = () => {
   return (
     <div className={`min-h-screen theme-transition-enabled font-sans selection:bg-accent/30 relative overflow-hidden bg-background text-foreground ${theme}`}>
       <CelestialBackground theme={theme} />
-      <Navigation 
-        theme={theme}
-        setTheme={switchTheme}
-        spreadType="single"
-        setSpreadType={() => {}}
-        reversals={false}
-        setReversals={() => {}}
-        reduceMotion={reduceMotion}
-        setReduceMotion={() => {}}
-        currentPage="home"
-        setCurrentPage={() => {}}
-      />
-      <PrivacyPage theme={theme} />
+      <div className="relative z-10">
+        <Navigation 
+          theme={theme}
+          setTheme={switchTheme}
+          spreadType="single"
+          setSpreadType={() => {}}
+          reversals={false}
+          setReversals={() => {}}
+          reduceMotion={reduceMotion}
+          setReduceMotion={() => {}}
+          currentPage="home"
+          setCurrentPage={() => {}}
+        />
+        <PrivacyPage theme={theme} />
+      </div>
     </div>
   );
 };
@@ -389,19 +393,21 @@ const ContactPageWrapper: React.FC = () => {
   return (
     <div className={`min-h-screen theme-transition-enabled font-sans selection:bg-accent/30 relative overflow-hidden bg-background text-foreground ${theme}`}>
       <CelestialBackground theme={theme} />
-      <Navigation 
-        theme={theme}
-        setTheme={switchTheme}
-        spreadType="single"
-        setSpreadType={() => {}}
-        reversals={false}
-        setReversals={() => {}}
-        reduceMotion={reduceMotion}
-        setReduceMotion={() => {}}
-        currentPage="home"
-        setCurrentPage={() => {}}      
-      />
-      <ContactPage theme={theme} />
+      <div className="relative z-10">
+        <Navigation 
+          theme={theme}
+          setTheme={switchTheme}
+          spreadType="single"
+          setSpreadType={() => {}}
+          reversals={false}
+          setReversals={() => {}}
+          reduceMotion={reduceMotion}
+          setReduceMotion={() => {}}
+          currentPage="home"
+          setCurrentPage={() => {}}
+        />
+        <ContactPage theme={theme} />
+      </div>
     </div>
   );
 };

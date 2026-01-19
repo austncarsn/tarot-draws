@@ -3,44 +3,44 @@
 :root {
   --font-size: 16px;
   
-  /* Moonstone Light Theme */
-  --background: #F8F6FA;
-  --foreground: #311B92;
+  /* Moonstone Light Theme - Enhanced Contrast */
+  --background: #FAF8FC;
+  --foreground: #1a0a3e;
   --card: #FFFFFF;
-  --card-foreground: #311B92;
+  --card-foreground: #1a0a3e;
   --popover: #FFFFFF;
-  --popover-foreground: #311B92;
-  --primary: #311B92;
-  --primary-foreground: #F8F6FA;
-  --secondary: #7E57C2;
-  --secondary-foreground: #311B92;
-  --muted: #E8E3F0;
-  --muted-foreground: #5E35B1;
-  --accent: #9575CD;
+  --popover-foreground: #1a0a3e;
+  --primary: #4a1d96;
+  --primary-foreground: #FFFFFF;
+  --secondary: #6b3fa0;
+  --secondary-foreground: #1a0a3e;
+  --muted: #f0e8f8;
+  --muted-foreground: #5c3d7a;
+  --accent: #7c3aed;
   --accent-foreground: #FFFFFF;
   --destructive: #C44569;
   --destructive-foreground: #FFFFFF;
-  --border: rgba(49, 27, 146, 0.12);
+  --border: rgba(26, 10, 62, 0.15);
   --input: transparent;
-  --input-background: rgba(255, 255, 255, 0.5);
-  --switch-background: #7E57C2;
+  --input-background: rgba(255, 255, 255, 0.8);
+  --switch-background: #7c3aed;
   --font-weight-medium: 700;
   --font-weight-normal: 700;
-  --ring: #9575CD;
-  --chart-1: #9575CD;
-  --chart-2: #7E57C2;
-  --chart-3: #5E35B1;
-  --chart-4: #F8F6FA;
-  --chart-5: #311B92;
+  --ring: #7c3aed;
+  --chart-1: #7c3aed;
+  --chart-2: #6b3fa0;
+  --chart-3: #4a1d96;
+  --chart-4: #FAF8FC;
+  --chart-5: #1a0a3e;
   --radius: 1rem;
   --sidebar: #FFFFFF;
-  --sidebar-foreground: #311B92;
-  --sidebar-primary: #311B92;
-  --sidebar-primary-foreground: #F8F6FA;
-  --sidebar-accent: #F5F3F8;
-  --sidebar-accent-foreground: #311B92;
-  --sidebar-border: rgba(49, 27, 146, 0.08);
-  --sidebar-ring: #9575CD;
+  --sidebar-foreground: #1a0a3e;
+  --sidebar-primary: #4a1d96;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #f5f0fa;
+  --sidebar-accent-foreground: #1a0a3e;
+  --sidebar-border: rgba(26, 10, 62, 0.1);
+  --sidebar-ring: #7c3aed;
   
   /* Premium Gradients */
   --gradient-primary: linear-gradient(135deg, #311B92 0%, #5E35B1 100%);

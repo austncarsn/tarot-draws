@@ -230,7 +230,7 @@ export const Hero: React.FC<HeroProps> = ({ onBegin, theme = 'dark' }) => {
               }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             >
-              <Vector />
+              <Vector gradient={true} theme={theme} />
             </motion.div>
             
             {/* Inner Glow Effect */}

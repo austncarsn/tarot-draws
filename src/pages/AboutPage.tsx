@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'motion/react';
 import { Star, Heart, Users, Shield } from 'lucide-react';
 import { Vector } from '../components/icons/Vector';
 
@@ -14,11 +13,8 @@ export const AboutPage: React.FC<AboutPageProps> = ({ theme = 'dark' }) => {
     <div className="min-h-screen pt-24 pb-20 px-6">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <motion.div 
+        <div 
           className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
         >
           <div className="w-16 h-16 mx-auto mb-6 text-primary">
             <Vector />
@@ -27,14 +23,11 @@ export const AboutPage: React.FC<AboutPageProps> = ({ theme = 'dark' }) => {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Bringing ancient wisdom to the digital age through beautiful, accessible tarot readings
           </p>
-        </motion.div>
+        </div>
 
         {/* Mission Section */}
-        <motion.div 
+        <div 
           className="mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
         >
           <div className="rounded-2xl border border-border bg-card/50 p-8 md:p-12">
             <h2 className="text-2xl md:text-3xl font-serif mb-6 text-foreground">Our Mission</h2>
@@ -47,14 +40,11 @@ export const AboutPage: React.FC<AboutPageProps> = ({ theme = 'dark' }) => {
               that honors both the ancient practice and contemporary needs for mindfulness and insight.
             </p>
           </div>
-        </motion.div>
+        </div>
 
         {/* Features Grid */}
-        <motion.div 
+        <div 
           className="grid md:grid-cols-2 gap-8 mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
         >
           <div className="rounded-xl border border-border bg-card/30 p-6">
             <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
@@ -95,14 +85,11 @@ export const AboutPage: React.FC<AboutPageProps> = ({ theme = 'dark' }) => {
               Built by spiritual practitioners for anyone seeking guidance, clarity, or a moment of reflection.
             </p>
           </div>
-        </motion.div>
+        </div>
 
         {/* How It Works */}
-        <motion.div 
+        <div 
           className="mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
         >
           <h2 className="text-2xl md:text-3xl font-serif mb-8 text-center text-foreground">How tarot draws Works</h2>
           <div className="grid md:grid-cols-3 gap-8">
@@ -136,14 +123,11 @@ export const AboutPage: React.FC<AboutPageProps> = ({ theme = 'dark' }) => {
               </p>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Disclaimer */}
-        <motion.div 
+        <div 
           className="text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
         >
           <div className="rounded-2xl border border-border bg-card/20 p-6 max-w-3xl mx-auto">
             <h3 className="text-lg font-serif mb-3 text-foreground">A Note on Tarot</h3>
@@ -153,7 +137,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ theme = 'dark' }) => {
               are meant to inspire contemplation and should be considered alongside your own judgment and circumstances.
             </p>
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );

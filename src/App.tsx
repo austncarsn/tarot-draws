@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion, MotionConfig } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 import { CelestialBackground } from './components/CelestialBackground';
 import { Navigation } from './components/Navigation';
 import { Hero } from './components/Hero';
@@ -335,43 +335,73 @@ export default function App() {
 
 // Page wrappers to maintain theme consistency
 const AboutPageWrapper: React.FC = () => {
-  const { theme } = useThemeTransition('dark');
+  const { theme, switchTheme } = useThemeTransition('dark');
   const [reduceMotion] = useReducedMotion();
   
   return (
-    <MotionConfig reducedMotion={reduceMotion ? "always" : "user"}>
-      <div className={`min-h-screen theme-transition-enabled font-sans selection:bg-accent/30 relative overflow-hidden bg-background text-foreground ${theme}`}>
-        <CelestialBackground theme={theme} />
-        <AboutPage theme={theme} />
-      </div>
-    </MotionConfig>
+    <div className={`min-h-screen theme-transition-enabled font-sans selection:bg-accent/30 relative overflow-hidden bg-background text-foreground ${theme}`}>
+      <CelestialBackground theme={theme} />
+      <Navigation 
+        theme={theme}
+        setTheme={switchTheme}
+        spreadType="single"
+        setSpreadType={() => {}}
+        reversals={false}
+        setReversals={() => {}}
+        reduceMotion={reduceMotion}
+        setReduceMotion={() => {}}
+        currentPage="home"
+        setCurrentPage={() => {}}
+      />
+      <AboutPage theme={theme} />
+    </div>
   );
 };
 
 const PrivacyPageWrapper: React.FC = () => {
-  const { theme } = useThemeTransition('dark');
+  const { theme, switchTheme } = useThemeTransition('dark');
   const [reduceMotion] = useReducedMotion();
   
   return (
-    <MotionConfig reducedMotion={reduceMotion ? "always" : "user"}>
-      <div className={`min-h-screen theme-transition-enabled font-sans selection:bg-accent/30 relative overflow-hidden bg-background text-foreground ${theme}`}>
-        <CelestialBackground theme={theme} />
-        <PrivacyPage theme={theme} />
-      </div>
-    </MotionConfig>
+    <div className={`min-h-screen theme-transition-enabled font-sans selection:bg-accent/30 relative overflow-hidden bg-background text-foreground ${theme}`}>
+      <CelestialBackground theme={theme} />
+      <Navigation 
+        theme={theme}
+        setTheme={switchTheme}
+        spreadType="single"
+        setSpreadType={() => {}}
+        reversals={false}
+        setReversals={() => {}}
+        reduceMotion={reduceMotion}
+        setReduceMotion={() => {}}
+        currentPage="home"
+        setCurrentPage={() => {}}
+      />
+      <PrivacyPage theme={theme} />
+    </div>
   );
 };
 
 const ContactPageWrapper: React.FC = () => {
-  const { theme } = useThemeTransition('dark');
+  const { theme, switchTheme } = useThemeTransition('dark');
   const [reduceMotion] = useReducedMotion();
   
   return (
-    <MotionConfig reducedMotion={reduceMotion ? "always" : "user"}>
-      <div className={`min-h-screen theme-transition-enabled font-sans selection:bg-accent/30 relative overflow-hidden bg-background text-foreground ${theme}`}>
-        <CelestialBackground theme={theme} />
-        <ContactPage theme={theme} />
-      </div>
-    </MotionConfig>
+    <div className={`min-h-screen theme-transition-enabled font-sans selection:bg-accent/30 relative overflow-hidden bg-background text-foreground ${theme}`}>
+      <CelestialBackground theme={theme} />
+      <Navigation 
+        theme={theme}
+        setTheme={switchTheme}
+        spreadType="single"
+        setSpreadType={() => {}}
+        reversals={false}
+        setReversals={() => {}}
+        reduceMotion={reduceMotion}
+        setReduceMotion={() => {}}
+        currentPage="home"
+        setCurrentPage={() => {}}      
+      />
+      <ContactPage theme={theme} />
+    </div>
   );
 };

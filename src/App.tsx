@@ -31,6 +31,7 @@ const TarotApp: React.FC = () => {
   const location = useLocation();
 
   const handleBegin = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     setState('drawing');
     setFlippedIndices([]);
     
@@ -142,7 +143,7 @@ const TarotApp: React.FC = () => {
           setCurrentPage={handleSetCurrentPage}
         />
 
-        <main className="relative pt-20 pb-20">
+        <main className="relative pt-20 pb-20 z-10">
         <AnimatePresence mode="wait">
           {state === 'landing' && (
             <motion.div
@@ -166,7 +167,7 @@ const TarotApp: React.FC = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="min-h-[80vh] flex flex-col items-center justify-center p-6"
+              className="min-h-[100dvh] md:min-h-[80vh] flex flex-col items-center justify-center px-4 py-8 relative z-20"
             >
               <div className="text-center mb-8 md:mb-12">
                 <h2 className="text-xl md:text-2xl font-serif mb-2 text-foreground">Focus your energy</h2>

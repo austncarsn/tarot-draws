@@ -171,11 +171,6 @@ const TarotApp: React.FC = () => {
               style={{ minHeight: 'calc(100vh - 5rem)' }}
               className="flex flex-col items-center justify-start pt-16 md:pt-24 pb-8 px-4 relative z-30"
             >
-              {/* DEBUG BEACON - Remove after fix verified */}
-              <div style={{ position: 'fixed', top: 0, left: 0, background: 'red', color: 'white', padding: '8px', zIndex: 9999, fontSize: '12px' }}>
-                DRAWING MOUNTED | Cards: {drawnCards.length}
-              </div>
-              
               <div className="text-center mb-8 md:mb-12">
                 <h2 className="text-xl md:text-2xl font-serif mb-2 text-foreground">Focus your energy</h2>
                 <p className="text-muted-foreground text-xs md:text-sm tracking-widest uppercase">

@@ -107,7 +107,7 @@ export const TarotCard: React.FC<TarotCardProps> = React.memo(({
       <motion.div
         className="relative w-full h-full transform-gpu"
         style={{ 
-          transformStyle: 'preserve-3d',
+          transformStyle: isMobile ? 'flat' : 'preserve-3d',
           rotateX: isMobile ? 0 : rotateX,
           rotateY: isMobile ? (isFlipped ? 180 : 0) : rotateY
         }}
@@ -125,10 +125,15 @@ export const TarotCard: React.FC<TarotCardProps> = React.memo(({
           mass: 1.2
         }}
       >
-        {/* CARD BACK */}
+        {/* CARD BACK - visible when not flipped */}
         <div 
-          className="absolute inset-0 backface-hidden w-full h-full rounded-[24px] overflow-hidden shadow-2xl bg-card transform-gpu will-change-transform" 
-          style={{ transform: 'rotateY(0deg)' }}
+          className="absolute inset-0 w-full h-full rounded-[24px] overflow-hidden shadow-2xl bg-card transform-gpu will-change-transform" 
+          style={{ 
+            backfaceVisibility: isMobile ? 'visible' : 'hidden',
+            transform: 'rotateY(0deg)',
+            opacity: isMobile ? (isFlipped ? 0 : 1) : 1,
+            transition: isMobile ? 'opacity 0.3s ease-in-out' : undefined
+          }}
         >
           <TarotCardBack theme={theme} className="w-full h-full" />
           
@@ -144,10 +149,15 @@ export const TarotCard: React.FC<TarotCardProps> = React.memo(({
           )}
         </div>
 
-        {/* CARD FRONT */}
+        {/* CARD FRONT - visible when flipped */}
         <div 
-          className="absolute inset-0 backface-hidden w-full h-full rounded-[24px] overflow-hidden shadow-2xl bg-card transform-gpu will-change-transform"
-          style={{ transform: `rotateY(180deg) ${isReversed ? 'rotateZ(180deg)' : ''}` }}
+          className="absolute inset-0 w-full h-full rounded-[24px] overflow-hidden shadow-2xl bg-card transform-gpu will-change-transform"
+          style={{ 
+            backfaceVisibility: isMobile ? 'visible' : 'hidden',
+            transform: `rotateY(180deg) ${isReversed ? 'rotateZ(180deg)' : ''}`,
+            opacity: isMobile ? (isFlipped ? 1 : 0) : 1,
+            transition: isMobile ? 'opacity 0.3s ease-in-out' : undefined
+          }}
         >
           {card && (
             <TarotCardFront 

@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Shield, Eye, Database, Cookie } from 'lucide-react';
+import { Shield, Eye, Database, Cookie, Home } from 'lucide-react';
 
 interface PrivacyPageProps {
   theme?: 'dark' | 'light';
@@ -195,12 +196,12 @@ export const PrivacyPage: React.FC<PrivacyPageProps> = ({ theme = 'dark' }) => {
               If you have any questions about our Privacy Policy or how we handle your data, 
               please don't hesitate to reach out.
             </p>
-            <a 
-              href="/contact" 
+            <Link 
+              to="/contact" 
               className="inline-flex items-center px-6 py-2 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-sm font-medium"
             >
               Contact Us
-            </a>
+            </Link>
           </div>
         </motion.div>
       </div>

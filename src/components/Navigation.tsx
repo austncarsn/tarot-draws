@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Moon, Sun, BookOpen, Menu, X } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Moon, Sun, BookOpen, Menu, X, Home, Info, Shield, Mail } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Vector } from './icons/Vector';
 
@@ -30,6 +31,18 @@ export const Navigation: React.FC<NavigationProps> = ({
 }) => {
   const isDark = theme === 'dark';
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isStaticPage = location.pathname !== '/';
+
+  const handleLogoClick = () => {
+    if (isStaticPage) {
+      navigate('/');
+    } else {
+      setCurrentPage('home');
+    }
+    setMobileMenuOpen(false);
+  };
 
   return (
     <>
@@ -42,7 +55,7 @@ export const Navigation: React.FC<NavigationProps> = ({
         {/* Logo Section - Refined */}
         <motion.div 
           className="flex items-center gap-3 cursor-pointer group pr-6 border-r border-border"
-          onClick={() => setCurrentPage('home')}
+          onClick={handleLogoClick}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
         >
@@ -164,89 +177,147 @@ export const Navigation: React.FC<NavigationProps> = ({
             className="fixed top-16 md:top-20 left-1/2 -translate-x-1/2 z-40 w-[92%] max-w-sm p-4 rounded-3xl border backdrop-blur-xl shadow-2xl md:hidden border-border bg-background/95"
           >
             <div className="space-y-4">
-              {/* Mobile Spread Selector */}
-              <div className="flex gap-2 p-1 rounded-2xl border bg-muted/20 border-border">
-                <button
-                  onClick={() => {
-                    setSpreadType('single');
-                    setMobileMenuOpen(false);
-                  }}
-                  className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-xs uppercase tracking-wider transition-all ${
-                    spreadType === 'single' 
-                      ? 'bg-primary text-primary-foreground' 
-                      : 'text-muted-foreground'
+              {/* Show Home link on static pages */}
+              {isStaticPage && (
+                <Link
+                  to="/"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl border bg-primary text-primary-foreground"
+                >
+                  <Home className="w-4 h-4" />
+                  <span className="text-xs uppercase tracking-wider">Back to Home</span>
+                </Link>
+              )}
+
+              {/* Show tarot controls only on main app */}
+              {!isStaticPage && (
+                <>
+                  {/* Mobile Spread Selector */}
+                  <div className="flex gap-2 p-1 rounded-2xl border bg-muted/20 border-border">
+                    <button
+                      onClick={() => {
+                        setSpreadType('single');
+                        setMobileMenuOpen(false);
+                      }}
+                      className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-xs uppercase tracking-wider transition-all ${
+                        spreadType === 'single' 
+                          ? 'bg-primary text-primary-foreground' 
+                          : 'text-muted-foreground'
+                      }`}
+                    >
+                      <div className="w-3 h-3">
+                        <Vector />
+                      </div>
+                      Insight
+                    </button>
+                    <button
+                      onClick={() => {
+                        setSpreadType('triple');
+                        setMobileMenuOpen(false);
+                      }}
+                      className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-xs uppercase tracking-wider transition-all ${
+                        spreadType === 'triple' 
+                          ? 'bg-primary text-primary-foreground' 
+                          : 'text-muted-foreground'
+                      }`}
+                    >
+                      <div className="w-3 h-3">
+                        <Vector />
+                      </div>
+                      Spread
+                    </button>
+                  </div>
+
+                  {/* Mobile Page Navigation */}
+                  <button
+                    onClick={() => {
+                      setCurrentPage(currentPage === 'home' ? 'glossary' : 'home');
+                      setMobileMenuOpen(false);
+                    }}
+                    className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl border bg-primary/5 border-primary/10 text-primary"
+                  >
+                    <BookOpen className="w-4 h-4" />
+                    <span className="text-xs uppercase tracking-wider">
+                      {currentPage === 'home' ? 'View Glossary' : 'Back to Home'}
+                    </span>
+                  </button>
+
+                  {/* Mobile Toggles */}
+                  <div className="space-y-3 pt-2 border-t border-border">
+                    <label className="flex items-center justify-between cursor-pointer p-2">
+                      <span className="text-xs uppercase tracking-wider text-foreground/70">
+                        Enable Reversals
+                      </span>
+                      <div className="relative">
+                        <input
+                          type="checkbox"
+                          checked={reversals}
+                          onChange={(e) => setReversals(e.target.checked)}
+                          className="sr-only peer"
+                        />
+                        <div className="w-11 h-6 rounded-full transition-all peer-checked:bg-secondary bg-muted" />
+                        <div className="absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform peer-checked:translate-x-5 shadow-sm" />
+                      </div>
+                    </label>
+
+                    <label className="flex items-center justify-between cursor-pointer p-2">
+                      <span className="text-xs uppercase tracking-wider text-foreground/70">
+                        Reduce Motion
+                      </span>
+                      <div className="relative">
+                        <input
+                          type="checkbox"
+                          checked={reduceMotion}
+                          onChange={(e) => setReduceMotion(e.target.checked)}
+                          className="sr-only peer"
+                        />
+                        <div className="w-11 h-6 rounded-full transition-all peer-checked:bg-secondary bg-muted" />
+                        <div className="absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform peer-checked:translate-x-5 shadow-sm" />
+                      </div>
+                    </label>
+                  </div>
+                </>
+              )}
+
+              {/* Page Links - Always visible */}
+              <div className="space-y-2 pt-2 border-t border-border">
+                <p className="text-[10px] uppercase tracking-widest text-muted-foreground/50 px-2 pt-1">Pages</p>
+                <Link
+                  to="/about"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all ${
+                    location.pathname === '/about' 
+                      ? 'bg-primary/10 text-primary' 
+                      : 'text-foreground/70 hover:bg-muted/20'
                   }`}
                 >
-                  <div className="w-3 h-3">
-                    <Vector />
-                  </div>
-                  Insight
-                </button>
-                <button
-                  onClick={() => {
-                    setSpreadType('triple');
-                    setMobileMenuOpen(false);
-                  }}
-                  className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-xs uppercase tracking-wider transition-all ${
-                    spreadType === 'triple' 
-                      ? 'bg-primary text-primary-foreground' 
-                      : 'text-muted-foreground'
+                  <Info className="w-4 h-4" />
+                  <span className="text-xs uppercase tracking-wider">About</span>
+                </Link>
+                <Link
+                  to="/privacy"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all ${
+                    location.pathname === '/privacy' 
+                      ? 'bg-primary/10 text-primary' 
+                      : 'text-foreground/70 hover:bg-muted/20'
                   }`}
                 >
-                  <div className="w-3 h-3">
-                     <Vector />
-                  </div>
-                  Spread
-                </button>
-              </div>
-
-              {/* Mobile Page Navigation */}
-              <button
-                onClick={() => {
-                  setCurrentPage(currentPage === 'home' ? 'glossary' : 'home');
-                  setMobileMenuOpen(false);
-                }}
-                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl border bg-primary/5 border-primary/10 text-primary"
-              >
-                <BookOpen className="w-4 h-4" />
-                <span className="text-xs uppercase tracking-wider">
-                  {currentPage === 'home' ? 'View Glossary' : 'Back to Home'}
-                </span>
-              </button>
-
-              {/* Mobile Toggles */}
-              <div className="space-y-3 pt-2 border-t border-border">
-                <label className="flex items-center justify-between cursor-pointer p-2">
-                  <span className="text-xs uppercase tracking-wider text-foreground/70">
-                    Enable Reversals
-                  </span>
-                  <div className="relative">
-                    <input
-                      type="checkbox"
-                      checked={reversals}
-                      onChange={(e) => setReversals(e.target.checked)}
-                      className="sr-only peer"
-                    />
-                    <div className="w-11 h-6 rounded-full transition-all peer-checked:bg-secondary bg-muted" />
-                    <div className="absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform peer-checked:translate-x-5 shadow-sm" />
-                  </div>
-                </label>
-
-                <label className="flex items-center justify-between cursor-pointer p-2">
-                  <span className="text-xs uppercase tracking-wider text-foreground/70">
-                    Reduce Motion
-                  </span>
-                  <div className="relative">
-                    <input
-                      type="checkbox"
-                      checked={reduceMotion}
-                      onChange={(e) => setReduceMotion(e.target.checked)}
-                      className="sr-only peer"
-                    />
-                    <div className="w-11 h-6 rounded-full transition-all peer-checked:bg-secondary bg-muted" />
-                    <div className="absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform peer-checked:translate-x-5 shadow-sm" />
-                  </div>
-                </label>
+                  <Shield className="w-4 h-4" />
+                  <span className="text-xs uppercase tracking-wider">Privacy</span>
+                </Link>
+                <Link
+                  to="/contact"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all ${
+                    location.pathname === '/contact' 
+                      ? 'bg-primary/10 text-primary' 
+                      : 'text-foreground/70 hover:bg-muted/20'
+                  }`}
+                >
+                  <Mail className="w-4 h-4" />
+                  <span className="text-xs uppercase tracking-wider">Contact</span>
+                </Link>
               </div>
             </div>
           </motion.div>

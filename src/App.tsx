@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Link, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion, MotionConfig } from 'motion/react';
 import { CelestialBackground } from './components/CelestialBackground';
 import { Navigation } from './components/Navigation';
@@ -8,6 +8,7 @@ import { TarotCard } from './components/TarotCard';
 import { ReadingResult } from './components/ReadingResult';
 import { Glossary } from './components/Glossary';
 import { AdPlacement, MobileStickyAd } from './components/AdPlacement';
+import { Footer } from './components/Footer';
 import { AboutPage } from './pages/AboutPage';
 import { PrivacyPage } from './pages/PrivacyPage';
 import { ContactPage } from './pages/ContactPage';
@@ -298,23 +299,7 @@ const TarotApp: React.FC = () => {
           )}
         </AnimatePresence>
 
-        <footer className="relative py-12 px-6 border-t border-border transition-colors duration-300 ease-out delay-250 text-center bg-card/40">
-          <div className="flex items-center justify-center gap-4 text-muted-foreground/40 mb-6">
-            <div className="h-[1px] w-12 bg-current" />
-            <div className="w-8 h-8 opacity-60">
-              <Vector />
-            </div>
-            <div className="h-[1px] w-12 bg-current" />
-          </div>
-          <p className="text-[10px] uppercase tracking-[0.3em] mb-2 text-muted-foreground">
-            &copy; 2025 TAROT DRAWS. GUIDANCE FROM THE STARS.
-          </p>
-          <div className="flex justify-center gap-6">
-             <a href="/about" className="text-[10px] uppercase tracking-widest text-muted-foreground hover:text-gold transition-colors">About</a>
-             <a href="/privacy" className="text-[10px] uppercase tracking-widest text-muted-foreground hover:text-gold transition-colors">Privacy</a>
-             <a href="/contact" className="text-[10px] uppercase tracking-widest text-muted-foreground hover:text-gold transition-colors">Contact</a>
-          </div>
-        </footer>
+        <Footer theme={theme} />
       </div>
     </MotionConfig>
   );
@@ -345,7 +330,7 @@ const PageWrapper: React.FC<PageWrapperProps> = ({ children }) => {
   return (
     <div className={`min-h-screen theme-transition-enabled font-sans selection:bg-accent/30 relative overflow-hidden bg-background text-foreground ${theme}`}>
       <CelestialBackground theme={theme} />
-      <div className="relative z-10">
+      <div className="relative z-10 flex flex-col min-h-screen">
         <Navigation 
           theme={theme}
           setTheme={switchTheme}
@@ -358,7 +343,10 @@ const PageWrapper: React.FC<PageWrapperProps> = ({ children }) => {
           currentPage="home"
           setCurrentPage={() => {}}
         />
-        {React.cloneElement(children, { theme })}
+        <main className="flex-1">
+          {React.cloneElement(children, { theme })}
+        </main>
+        <Footer theme={theme} />
       </div>
     </div>
   );

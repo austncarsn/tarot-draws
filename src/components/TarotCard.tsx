@@ -4,6 +4,8 @@ import { TarotCard as TarotCardType } from '../data/tarot-data';
 import { TarotCardBack } from './TarotCardBack';
 import { TarotCardFront } from './TarotCardFront';
 
+// TarotCard v2.0 - Separate mobile/desktop rendering paths
+
 interface TarotCardProps {
   card?: TarotCardType;
   isFlipped: boolean;

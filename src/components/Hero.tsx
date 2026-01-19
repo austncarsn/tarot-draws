@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion, useAnimation, useScroll, useTransform } from 'motion/react';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Sparkles } from 'lucide-react';
 import { Vector } from './icons/Vector';
 
 interface HeroProps {

@@ -36,6 +36,9 @@ export const TarotCard: React.FC<TarotCardProps> = React.memo(({
   const rotateX = useTransform(mouseY, [-0.5, 0.5], [isFlipped ? 0 : 5, isFlipped ? 0 : -5]);
   const rotateY = useTransform(mouseX, [-0.5, 0.5], [isFlipped ? 180 : -5, isFlipped ? 180 : 5]);
   
+  // Glare effect transform - must be called unconditionally (Rules of Hooks)
+  const glareX = useTransform(mouseX, [-0.5, 0.5], ['-100%', '100%']);
+  
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
@@ -134,7 +137,7 @@ export const TarotCard: React.FC<TarotCardProps> = React.memo(({
             <motion.div 
               className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent pointer-events-none mix-blend-overlay"
               style={{
-                x: useTransform(mouseX, [-0.5, 0.5], ['-100%', '100%']),
+                x: glareX,
                 opacity: isHovered ? 0.5 : 0
               }}
             />

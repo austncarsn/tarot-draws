@@ -145,7 +145,7 @@ export const AdPlacement: React.FC<AdPlacementProps> = ({
     }
 
     return (status === 'loaded' ? (
-      <div className="absolute inset-0 flex items-center justify-center p-4 fade-in">
+      <div className="absolute inset-0 flex items-center justify-center p-4">
         <div className="text-center">
           <p className={`text-[9px] uppercase tracking-widest mb-1 ${isDark ? 'text-white/30' : 'text-[#311B92]/30'}`}>
             Divine Alignment
@@ -160,10 +160,7 @@ export const AdPlacement: React.FC<AdPlacementProps> = ({
 
   if (isCosmicSponsor) {
     return (
-      <motion.section 
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
+      <section 
         className={`w-full py-12 px-6 flex flex-col items-center ${className}`}
       >
         <div className="w-full max-w-4xl relative">
@@ -204,7 +201,7 @@ export const AdPlacement: React.FC<AdPlacementProps> = ({
             </div>
           </div>
         </div>
-      </motion.section>
+      </section>
     );
   }
 

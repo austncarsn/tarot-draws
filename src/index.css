@@ -3222,8 +3222,10 @@
     animation-delay: .25s;
   }
 
+  /* Disable fade-in animation that interferes with AdSense */
   .fade-in {
-    --tw-enter-opacity: 0;
+    /* --tw-enter-opacity: 0; */
+    opacity: 1;
   }
 
   .group-focus-within\:text-accent:is(:where(.group):focus-within *) {

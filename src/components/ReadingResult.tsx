@@ -24,20 +24,20 @@ export const ReadingResult: React.FC<ReadingResultProps> = ({ cards, onReset, th
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Parallax scroll effect for header - Disabled on mobile
+  // Parallax scroll effect for header - Disabled for better UX
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"]
   });
 
-  const headerY = useTransform(scrollYProgress, [0, 0.5], [0, isMobile ? 0 : 50]);
-  const headerOpacity = useTransform(scrollYProgress, [0, 0.3], [1, isMobile ? 1 : 0.8]);
+  const headerY = useTransform(scrollYProgress, [0, 0.5], [0, 0]);
+  const headerOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 1]);
 
   return (
     <div ref={containerRef} className="w-full max-w-6xl mx-auto px-5 md:px-6 py-12 md:py-20 relative z-10 overflow-x-hidden">
       {/* Premium Header with subtle parallax */}
       <motion.div 
-        className="flex flex-col items-center mb-16 md:mb-24 text-center sticky top-0 md:relative z-20"
+        className="flex flex-col items-center mb-16 md:mb-24 text-center relative z-20"
         style={{ y: headerY, opacity: headerOpacity }}
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -129,9 +129,8 @@ const ScrollRevealCard: React.FC<{
 }> = ({ card, isReversed, index, total, isDark, theme, isMobile }) => {
   return (
     <motion.div 
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: isMobile ? "-20px" : "-50px" }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`flex flex-col ${
         index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'

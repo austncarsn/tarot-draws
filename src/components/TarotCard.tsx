@@ -84,7 +84,7 @@ export const TarotCard: React.FC<TarotCardProps> = React.memo(({
       role="button"
       tabIndex={0}
       onKeyDown={handleKeyDown}
-      className={`relative w-[240px] h-[370px] md:w-[280px] md:h-[430px] perspective-1000 cursor-pointer group touch-manipulation select-none z-10 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background rounded-[24px] ${className}`}
+      className={`relative w-[240px] h-[370px] md:w-[280px] md:h-[430px] perspective-1000 cursor-pointer group touch-manipulation select-none z-10 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background rounded-[24px] transform-gpu ${className}`}
       onClick={onClick}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -92,15 +92,17 @@ export const TarotCard: React.FC<TarotCardProps> = React.memo(({
       whileHover={!isMobile ? { scale: 1.02, y: -10 } : {}}
       whileTap={{ scale: 0.98 }}
     >
-      {/* Dynamic Ambient Glow */}
-      <div 
-        className={`absolute -inset-6 rounded-[40px] blur-2xl transition-opacity duration-700 pointer-events-none bg-accent/20 ${
-          isHovered && !isFlipped ? 'opacity-40' : 'opacity-0'
-        }`} 
-      />
+      {/* Dynamic Ambient Glow - Hidden on mobile for performance */}
+      {!isMobile && (
+        <div 
+          className={`absolute -inset-6 rounded-[40px] blur-2xl transition-opacity duration-700 pointer-events-none bg-accent/20 ${
+            isHovered && !isFlipped ? 'opacity-40' : 'opacity-0'
+          }`} 
+        />
+      )}
 
       <motion.div
-        className="relative w-full h-full"
+        className="relative w-full h-full transform-gpu"
         style={{ 
           transformStyle: 'preserve-3d',
           rotateX: isMobile ? 0 : rotateX,
@@ -109,7 +111,11 @@ export const TarotCard: React.FC<TarotCardProps> = React.memo(({
         animate={{ 
           rotateY: isFlipped ? 180 : 0 
         }}
-        transition={{ 
+        transition={isMobile ? {
+          type: "tween",
+          duration: 0.5,
+          ease: [0.4, 0, 0.2, 1]
+        } : { 
           type: "spring", 
           stiffness: 180, 
           damping: 25,
@@ -118,24 +124,26 @@ export const TarotCard: React.FC<TarotCardProps> = React.memo(({
       >
         {/* CARD BACK */}
         <div 
-          className="absolute inset-0 backface-hidden w-full h-full rounded-[24px] overflow-hidden shadow-2xl bg-card" 
+          className="absolute inset-0 backface-hidden w-full h-full rounded-[24px] overflow-hidden shadow-2xl bg-card transform-gpu will-change-transform" 
           style={{ transform: 'rotateY(0deg)' }}
         >
           <TarotCardBack theme={theme} className="w-full h-full" />
           
-          {/* Dynamic Glare/Sheen on Hover (Back) */}
-          <motion.div 
-            className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent pointer-events-none mix-blend-overlay"
-            style={{
-              x: useTransform(mouseX, [-0.5, 0.5], ['-100%', '100%']),
-              opacity: isHovered ? 0.5 : 0
-            }}
-          />
+          {/* Dynamic Glare/Sheen on Hover (Back) - Desktop only */}
+          {!isMobile && (
+            <motion.div 
+              className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent pointer-events-none mix-blend-overlay"
+              style={{
+                x: useTransform(mouseX, [-0.5, 0.5], ['-100%', '100%']),
+                opacity: isHovered ? 0.5 : 0
+              }}
+            />
+          )}
         </div>
 
         {/* CARD FRONT */}
         <div 
-          className="absolute inset-0 backface-hidden w-full h-full rounded-[24px] overflow-hidden shadow-2xl bg-card"
+          className="absolute inset-0 backface-hidden w-full h-full rounded-[24px] overflow-hidden shadow-2xl bg-card transform-gpu will-change-transform"
           style={{ transform: `rotateY(180deg) ${isReversed ? 'rotateZ(180deg)' : ''}` }}
         >
           {card && (
@@ -146,8 +154,10 @@ export const TarotCard: React.FC<TarotCardProps> = React.memo(({
             />
           )}
           
-          {/* Holographic Foil Overlay */}
-          <div className="absolute inset-0 opacity-30 pointer-events-none mix-blend-color-dodge bg-gradient-to-tr from-transparent via-white/20 to-transparent animate-shimmer" />
+          {/* Holographic Foil Overlay - Simplified on mobile */}
+          {!isMobile && (
+            <div className="absolute inset-0 opacity-30 pointer-events-none mix-blend-color-dodge bg-gradient-to-tr from-transparent via-white/20 to-transparent animate-shimmer" />
+          )}
         </div>
       </motion.div>
     </motion.div>

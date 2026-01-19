@@ -79,6 +79,28 @@ export const Hero: React.FC<HeroProps> = ({ onBegin, theme = 'dark' }) => {
     <div className="relative min-h-[100dvh] flex flex-col items-center justify-center text-center px-4 md:px-6 overflow-hidden z-10 pt-24 md:pt-12 pb-20 md:pb-0">
       {/* Premium Geometric Background Elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {/* Twinkling Stars */}
+        {!isMobile && [...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 rounded-full bg-white"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              opacity: [0.1, 0.8, 0.1],
+              scale: [0.8, 1.2, 0.8]
+            }}
+            transition={{
+              duration: 2 + Math.random() * 3,
+              repeat: Infinity,
+              delay: Math.random() * 2,
+              ease: "easeInOut"
+            }}
+          />
+        ))}
+        
         {/* Animated Gradient Orbs - Static on mobile */}
         <motion.div
           style={{ y: y1 }}
@@ -160,8 +182,38 @@ export const Hero: React.FC<HeroProps> = ({ onBegin, theme = 'dark' }) => {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="relative z-10 flex flex-col items-center max-w-5xl w-full"
       >
-        {/* Central Vector Icon - Simplified on mobile */}
+        {/* Central Vector Icon with Enhanced Glow */}
         <div className="mb-8 md:mb-12 relative group cursor-pointer transform-gpu">
+          {/* Outer pulsing ring */}
+          <motion.div
+            className="absolute inset-0 rounded-full"
+            style={{
+              background: isDark 
+                ? 'radial-gradient(circle, rgba(212,175,55,0.15) 0%, transparent 70%)'
+                : 'radial-gradient(circle, rgba(99,102,241,0.2) 0%, transparent 70%)',
+              scale: 1.8
+            }}
+            animate={{
+              opacity: [0.3, 0.6, 0.3],
+              scale: [1.6, 1.9, 1.6]
+            }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          />
+          
+          {/* Secondary glow ring */}
+          <motion.div
+            className="absolute inset-0 rounded-full border border-accent/20"
+            style={{ scale: 1.3 }}
+            animate={{
+              opacity: [0.2, 0.5, 0.2],
+              rotate: [0, 360]
+            }}
+            transition={{ 
+              opacity: { duration: 3, repeat: Infinity, ease: "easeInOut" },
+              rotate: { duration: 60, repeat: Infinity, ease: "linear" }
+            }}
+          />
+          
           <motion.div
             className="w-28 h-28 md:w-48 md:h-48 relative p-6 md:p-8 rounded-full backdrop-blur-sm border transition-colors duration-500 bg-background/5 border-border transform-gpu"
             animate={isMobile ? {} : {
@@ -171,16 +223,25 @@ export const Hero: React.FC<HeroProps> = ({ onBegin, theme = 'dark' }) => {
             whileHover={!isMobile ? { scale: 1.05 } : {}}
             transition={{ duration: 0.3 }}
           >
-            <div className="w-full h-full transition-colors duration-500 text-foreground">
+            <motion.div 
+              className="w-full h-full transition-colors duration-500 text-foreground"
+              animate={{ 
+                filter: ['brightness(1)', 'brightness(1.2)', 'brightness(1)']
+              }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            >
               <Vector />
-            </div>
+            </motion.div>
             
-            {/* Glow Effect - Static on mobile, animated on desktop */}
-            <div 
+            {/* Inner Glow Effect */}
+            <motion.div 
               className={`absolute inset-0 rounded-full blur-2xl md:blur-3xl -z-10 ${
-                isDark ? 'bg-white/10' : 'bg-primary/20'
+                isDark ? 'bg-accent/30' : 'bg-primary/30'
               }`}
-              style={{ opacity: 0.4 }}
+              animate={{
+                opacity: [0.3, 0.5, 0.3]
+              }}
+              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
             />
           </motion.div>
         </div>
@@ -194,12 +255,18 @@ export const Hero: React.FC<HeroProps> = ({ onBegin, theme = 'dark' }) => {
           <div className="h-px w-10 md:w-16 bg-gradient-to-l from-transparent to-border" />
         </div>
         
-        {/* Main Heading */}
-        <h1 className="text-[3.2rem] sm:text-7xl md:text-8xl lg:text-9xl font-sans font-light mb-2 leading-[0.9] tracking-tighter transition-colors duration-500 text-foreground">
+        {/* Main Heading - Fraunces font */}
+        <h1 
+          className="text-[3.2rem] sm:text-7xl md:text-8xl lg:text-9xl mb-2 leading-[0.9] tracking-tight transition-colors duration-500 text-foreground"
+          style={{ fontFamily: "'Fraunces', serif", fontWeight: 300 }}
+        >
           Draw a spread.
         </h1>
         
-        <h2 className="text-3xl sm:text-6xl md:text-7xl lg:text-8xl font-serif mb-10 md:mb-12 italic transition-colors duration-500 text-foreground/90">
+        <h2 
+          className="text-3xl sm:text-6xl md:text-7xl lg:text-8xl mb-10 md:mb-12 italic transition-colors duration-500 text-foreground/90"
+          style={{ fontFamily: "'Fraunces', serif", fontWeight: 300, fontStyle: 'italic' }}
+        >
           Reflect deeply.
         </h2>
         

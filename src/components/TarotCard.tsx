@@ -24,7 +24,13 @@ export const TarotCard: React.FC<TarotCardProps> = React.memo(({
   const isDark = theme === 'dark';
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  // Initialize isMobile based on window width (SSR-safe)
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth < 768;
+    }
+    return true; // Default to mobile for SSR
+  });
 
   // 3D Tilt Effect State
   const x = useMotionValue(0);
@@ -104,41 +110,70 @@ export const TarotCard: React.FC<TarotCardProps> = React.memo(({
         />
       )}
 
-      <motion.div
-        className="relative w-full h-full transform-gpu"
-        style={{ 
-          transformStyle: isMobile ? 'flat' : 'preserve-3d',
-          rotateX: isMobile ? 0 : rotateX,
-          rotateY: isMobile ? (isFlipped ? 180 : 0) : rotateY
-        }}
-        animate={{ 
-          rotateY: isFlipped ? 180 : 0 
-        }}
-        transition={isMobile ? {
-          type: "tween",
-          duration: 0.5,
-          ease: [0.4, 0, 0.2, 1]
-        } : { 
-          type: "spring", 
-          stiffness: 180, 
-          damping: 25,
-          mass: 1.2
-        }}
-      >
-        {/* CARD BACK - visible when not flipped */}
-        <div 
-          className="absolute inset-0 w-full h-full rounded-[24px] overflow-hidden shadow-2xl bg-card transform-gpu will-change-transform" 
+      {/* For mobile: Simple opacity-based card flip with no 3D transforms */}
+      {isMobile ? (
+        <div className="relative w-full h-full">
+          {/* CARD BACK - visible when not flipped */}
+          <div 
+            className="absolute inset-0 w-full h-full rounded-[24px] overflow-hidden shadow-2xl bg-card"
+            style={{ 
+              opacity: isFlipped ? 0 : 1,
+              transition: 'opacity 0.4s ease-in-out',
+              zIndex: isFlipped ? 1 : 2
+            }}
+          >
+            <TarotCardBack theme={theme} className="w-full h-full" />
+          </div>
+
+          {/* CARD FRONT - visible when flipped */}
+          <div 
+            className="absolute inset-0 w-full h-full rounded-[24px] overflow-hidden shadow-2xl bg-card"
+            style={{ 
+              opacity: isFlipped ? 1 : 0,
+              transition: 'opacity 0.4s ease-in-out',
+              transform: isReversed ? 'rotateZ(180deg)' : undefined,
+              zIndex: isFlipped ? 2 : 1
+            }}
+          >
+            {card && (
+              <TarotCardFront 
+                card={card} 
+                theme={theme} 
+                className="w-full h-full"
+              />
+            )}
+          </div>
+        </div>
+      ) : (
+        /* Desktop: Full 3D flip animation */
+        <motion.div
+          className="relative w-full h-full transform-gpu"
           style={{ 
-            backfaceVisibility: isMobile ? 'visible' : 'hidden',
-            transform: 'rotateY(0deg)',
-            opacity: isMobile ? (isFlipped ? 0 : 1) : 1,
-            transition: isMobile ? 'opacity 0.3s ease-in-out' : undefined
+            transformStyle: 'preserve-3d',
+            rotateX: rotateX,
+            rotateY: rotateY
+          }}
+          animate={{ 
+            rotateY: isFlipped ? 180 : 0 
+          }}
+          transition={{ 
+            type: "spring", 
+            stiffness: 180, 
+            damping: 25,
+            mass: 1.2
           }}
         >
-          <TarotCardBack theme={theme} className="w-full h-full" />
-          
-          {/* Dynamic Glare/Sheen on Hover (Back) - Desktop only */}
-          {!isMobile && (
+          {/* CARD BACK */}
+          <div 
+            className="absolute inset-0 w-full h-full rounded-[24px] overflow-hidden shadow-2xl bg-card transform-gpu will-change-transform" 
+            style={{ 
+              backfaceVisibility: 'hidden',
+              transform: 'rotateY(0deg)'
+            }}
+          >
+            <TarotCardBack theme={theme} className="w-full h-full" />
+            
+            {/* Dynamic Glare/Sheen on Hover (Back) */}
             <motion.div 
               className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent pointer-events-none mix-blend-overlay"
               style={{
@@ -146,33 +181,29 @@ export const TarotCard: React.FC<TarotCardProps> = React.memo(({
                 opacity: isHovered ? 0.5 : 0
               }}
             />
-          )}
-        </div>
+          </div>
 
-        {/* CARD FRONT - visible when flipped */}
-        <div 
-          className="absolute inset-0 w-full h-full rounded-[24px] overflow-hidden shadow-2xl bg-card transform-gpu will-change-transform"
-          style={{ 
-            backfaceVisibility: isMobile ? 'visible' : 'hidden',
-            transform: `rotateY(180deg) ${isReversed ? 'rotateZ(180deg)' : ''}`,
-            opacity: isMobile ? (isFlipped ? 1 : 0) : 1,
-            transition: isMobile ? 'opacity 0.3s ease-in-out' : undefined
-          }}
-        >
-          {card && (
-            <TarotCardFront 
-              card={card} 
-              theme={theme} 
-              className="w-full h-full"
-            />
-          )}
-          
-          {/* Holographic Foil Overlay - Simplified on mobile */}
-          {!isMobile && (
+          {/* CARD FRONT */}
+          <div 
+            className="absolute inset-0 w-full h-full rounded-[24px] overflow-hidden shadow-2xl bg-card transform-gpu will-change-transform"
+            style={{ 
+              backfaceVisibility: 'hidden',
+              transform: `rotateY(180deg) ${isReversed ? 'rotateZ(180deg)' : ''}`
+            }}
+          >
+            {card && (
+              <TarotCardFront 
+                card={card} 
+                theme={theme} 
+                className="w-full h-full"
+              />
+            )}
+            
+            {/* Holographic Foil Overlay */}
             <div className="absolute inset-0 opacity-30 pointer-events-none mix-blend-color-dodge bg-gradient-to-tr from-transparent via-white/20 to-transparent animate-shimmer" />
-          )}
-        </div>
-      </motion.div>
+          </div>
+        </motion.div>
+      )}
     </motion.div>
   );
 });

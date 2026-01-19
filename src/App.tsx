@@ -179,7 +179,7 @@ const TarotApp: React.FC = () => {
                 {drawnCards.map((data, idx) => (
                   <div key={idx} className="flex flex-col items-center">
                     {spreadType === 'triple' && (
-                      <span className="text-[10px] text-gold/40 uppercase tracking-[0.4em] mb-4">
+                      <span className={`text-[10px] uppercase tracking-[0.4em] mb-4 ${theme === 'dark' ? 'text-gold/60' : 'text-primary/70'}`}>
                         {idx === 0 ? 'Past' : idx === 1 ? 'Present' : 'Future'}
                       </span>
                     )}
@@ -269,7 +269,7 @@ const TarotApp: React.FC = () => {
                     />
                   </div>
                   <div className="p-8 md:p-12 flex flex-col justify-center">
-                    <div className="text-xs text-gold uppercase tracking-[0.3em] mb-3 opacity-60">Card No. {selectedGlossaryCard.number}</div>
+                    <div className={`text-xs uppercase tracking-[0.3em] mb-3 ${theme === 'dark' ? 'text-gold/60' : 'text-primary/70'}`}>Card No. {selectedGlossaryCard.number}</div>
                     <h2 className="text-3xl md:text-5xl font-serif mb-6 text-foreground">{selectedGlossaryCard.name}</h2>
                     <div className="flex flex-wrap gap-2 mb-8">
                       {selectedGlossaryCard.keywords.map(kw => (

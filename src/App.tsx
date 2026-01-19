@@ -97,7 +97,7 @@ const TarotApp: React.FC = () => {
         bg-background -> var(--background)
         text-foreground -> var(--foreground)
       */}
-      <div className={`min-h-screen theme-transition-enabled font-sans selection:bg-accent/30 relative overflow-hidden bg-background text-foreground ${theme}`}>
+      <div className={`min-h-screen theme-transition-enabled font-sans selection:bg-accent/30 relative bg-background text-foreground ${theme}`}>
         {/* Premium Ambient Background */}
         <div className="fixed inset-0 pointer-events-none">
           <motion.div 
@@ -143,7 +143,7 @@ const TarotApp: React.FC = () => {
           setCurrentPage={handleSetCurrentPage}
         />
 
-        <main className="relative pt-20 pb-20 z-10">
+        <main className="relative pt-20 pb-20 z-20">
         <AnimatePresence mode="wait">
           {state === 'landing' && (
             <motion.div
@@ -167,7 +167,7 @@ const TarotApp: React.FC = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="min-h-[100dvh] md:min-h-[80vh] flex flex-col items-center justify-center px-4 py-8 relative z-20"
+              className="min-h-screen flex flex-col items-center justify-center px-4 py-24 relative z-30 bg-background/80 backdrop-blur-sm"
             >
               <div className="text-center mb-8 md:mb-12">
                 <h2 className="text-xl md:text-2xl font-serif mb-2 text-foreground">Focus your energy</h2>

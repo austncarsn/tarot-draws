@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion, MotionConfig } from 'motion/react';
 import { CelestialBackground } from './components/CelestialBackground';
 import { Navigation } from './components/Navigation';
@@ -7,6 +8,9 @@ import { TarotCard } from './components/TarotCard';
 import { ReadingResult } from './components/ReadingResult';
 import { Glossary } from './components/Glossary';
 import { AdPlacement, MobileStickyAd } from './components/AdPlacement';
+import { AboutPage } from './pages/AboutPage';
+import { PrivacyPage } from './pages/PrivacyPage';
+import { ContactPage } from './pages/ContactPage';
 import { TAROT_CARDS, TarotCard as TarotCardType } from './data/tarot-data';
 import { Vector } from './components/icons/Vector';
 import { useReducedMotion } from './hooks/useReducedMotion';
@@ -14,7 +18,7 @@ import { useThemeTransition } from './hooks/useThemeTransition';
 
 type AppState = 'landing' | 'drawing' | 'reading' | 'glossary';
 
-export default function App() {
+const TarotApp: React.FC = () => {
   const { theme, switchTheme } = useThemeTransition('dark');
   const [state, setState] = useState<AppState>('landing');
   const [spreadType, setSpreadType] = useState<'single' | 'triple'>('single');
@@ -23,6 +27,7 @@ export default function App() {
   const [drawnCards, setDrawnCards] = useState<{ card: TarotCardType; isReversed: boolean }[]>([]);
   const [flippedIndices, setFlippedIndices] = useState<number[]>([]);
   const [selectedGlossaryCard, setSelectedGlossaryCard] = useState<TarotCardType | null>(null);
+  const location = useLocation();
 
   const handleBegin = useCallback(() => {
     setState('drawing');
@@ -72,6 +77,16 @@ export default function App() {
   }, []);
 
   const handleCloseGlossaryCard = useCallback(() => setSelectedGlossaryCard(null), []);
+
+  // Reset tarot app state when navigating to different pages
+  useEffect(() => {
+    if (location.pathname !== '/') {
+      setState('landing');
+      setDrawnCards([]);
+      setFlippedIndices([]);
+      setSelectedGlossaryCard(null);
+    }
+  }, [location.pathname]);
 
   return (
     <MotionConfig reducedMotion={reduceMotion ? "always" : "user"}>
@@ -303,4 +318,60 @@ export default function App() {
       </div>
     </MotionConfig>
   );
+};
+
+export default function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<TarotApp />} />
+        <Route path="/about" element={<AboutPageWrapper />} />
+        <Route path="/privacy" element={<PrivacyPageWrapper />} />
+        <Route path="/contact" element={<ContactPageWrapper />} />
+      </Routes>
+    </Router>
+  );
 }
+
+// Page wrappers to maintain theme consistency
+const AboutPageWrapper: React.FC = () => {
+  const { theme } = useThemeTransition('dark');
+  const [reduceMotion] = useReducedMotion();
+  
+  return (
+    <MotionConfig reducedMotion={reduceMotion ? "always" : "user"}>
+      <div className={`min-h-screen theme-transition-enabled font-sans selection:bg-accent/30 relative overflow-hidden bg-background text-foreground ${theme}`}>
+        <CelestialBackground theme={theme} />
+        <AboutPage theme={theme} />
+      </div>
+    </MotionConfig>
+  );
+};
+
+const PrivacyPageWrapper: React.FC = () => {
+  const { theme } = useThemeTransition('dark');
+  const [reduceMotion] = useReducedMotion();
+  
+  return (
+    <MotionConfig reducedMotion={reduceMotion ? "always" : "user"}>
+      <div className={`min-h-screen theme-transition-enabled font-sans selection:bg-accent/30 relative overflow-hidden bg-background text-foreground ${theme}`}>
+        <CelestialBackground theme={theme} />
+        <PrivacyPage theme={theme} />
+      </div>
+    </MotionConfig>
+  );
+};
+
+const ContactPageWrapper: React.FC = () => {
+  const { theme } = useThemeTransition('dark');
+  const [reduceMotion] = useReducedMotion();
+  
+  return (
+    <MotionConfig reducedMotion={reduceMotion ? "always" : "user"}>
+      <div className={`min-h-screen theme-transition-enabled font-sans selection:bg-accent/30 relative overflow-hidden bg-background text-foreground ${theme}`}>
+        <CelestialBackground theme={theme} />
+        <ContactPage theme={theme} />
+      </div>
+    </MotionConfig>
+  );
+};

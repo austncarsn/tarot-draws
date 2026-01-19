@@ -248,11 +248,11 @@ export const Hero: React.FC<HeroProps> = ({ onBegin, theme = 'dark' }) => {
         
         {/* Subtitle */}
         <div className="flex items-center gap-3 md:gap-4 mb-6 md:mb-8">
-          <div className="h-px w-10 md:w-16 bg-gradient-to-r from-transparent to-border" />
-          <span className="text-[10px] md:text-xs uppercase tracking-[0.4em] text-muted-foreground">
+          <div className="h-px w-10 md:w-16 bg-gradient-to-r from-transparent to-primary/30" />
+          <span className="text-[10px] md:text-xs uppercase tracking-[0.4em] font-semibold text-primary">
             Tarot Draws
           </span>
-          <div className="h-px w-10 md:w-16 bg-gradient-to-l from-transparent to-border" />
+          <div className="h-px w-10 md:w-16 bg-gradient-to-l from-transparent to-primary/30" />
         </div>
         
         {/* Main Heading - Fraunces font */}

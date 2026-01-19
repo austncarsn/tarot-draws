@@ -57,7 +57,7 @@ export const ReadingResult: React.FC<ReadingResultProps> = ({ cards, onReset, th
           <div className="absolute inset-0 blur-2xl rounded-full transition-colors duration-500 bg-accent/20" />
         </motion.div>
         
-        <h2 className="text-[10px] md:text-xs font-sans uppercase tracking-[0.4em] mb-4 font-medium transition-colors duration-500 text-foreground">
+        <h2 className="text-[10px] md:text-xs font-sans uppercase tracking-[0.4em] mb-4 font-semibold transition-colors duration-500 text-primary">
           Your Cosmic Transmission
         </h2>
         
@@ -139,10 +139,10 @@ const ScrollRevealCard: React.FC<{
       {/* Card Visual */}
       <div className="flex flex-col items-center md:w-1/2 w-full">
         <motion.div
-          className="mb-5 md:mb-6 px-4 py-1 md:px-5 md:py-1.5 rounded-full backdrop-blur-md border transition-colors duration-500 bg-background/5 border-border text-foreground/80"
+          className="mb-5 md:mb-6 px-4 py-1 md:px-5 md:py-1.5 rounded-full backdrop-blur-md border transition-colors duration-500 bg-primary/10 border-primary/30 text-primary"
           whileHover={{ scale: 1.05 }}
         >
-          <span className="text-[10px] font-sans uppercase tracking-[0.3em] font-semibold">
+          <span className="text-[10px] font-sans uppercase tracking-[0.3em] font-bold">
             {total > 1 ? (index === 0 ? 'Past' : index === 1 ? 'Present' : 'Future') : 'The Insight'}
           </span>
         </motion.div>
@@ -171,27 +171,27 @@ const ScrollRevealCard: React.FC<{
         transition={{ delay: 0.1, duration: 0.6 }}
       >
         {/* Upright Meaning */}
-        <div className="p-6 md:p-8 rounded-2xl md:rounded-3xl border backdrop-blur-xl transition-all duration-500 bg-background/5 border-border shadow-[0_0_30px_rgba(0,0,0,0.05)]">
+        <div className="p-6 md:p-8 rounded-2xl md:rounded-3xl border backdrop-blur-xl transition-all duration-500 bg-card/80 border-primary/20 shadow-lg">
           <div className="flex items-center gap-3 mb-3 md:mb-4">
-            <Star className="w-3.5 h-3.5 md:w-4 md:h-4 transition-colors duration-500 text-foreground/80" fill="currentColor" />
-            <h4 className="text-[10px] md:text-xs font-sans uppercase tracking-[0.2em] font-semibold transition-colors duration-500 text-foreground">
+            <Star className="w-3.5 h-3.5 md:w-4 md:h-4 transition-colors duration-500 text-primary" fill="currentColor" />
+            <h4 className="text-[10px] md:text-xs font-sans uppercase tracking-[0.2em] font-bold transition-colors duration-500 text-primary">
               Upright Meaning
             </h4>
           </div>
-          <p className="text-sm md:text-base leading-relaxed font-light transition-colors duration-500 text-muted-foreground">
+          <p className="text-sm md:text-base leading-relaxed transition-colors duration-500 text-foreground">
             {card.description}
           </p>
         </div>
 
         {/* Reversed Meaning */}
-        <div className="p-6 md:p-8 rounded-2xl md:rounded-3xl border backdrop-blur-xl transition-all duration-500 bg-background/5 border-border shadow-[0_0_30px_rgba(0,0,0,0.05)]">
+        <div className="p-6 md:p-8 rounded-2xl md:rounded-3xl border backdrop-blur-xl transition-all duration-500 bg-card/80 border-primary/20 shadow-lg">
           <div className="flex items-center gap-3 mb-3 md:mb-4">
-            <Sparkles className="w-3.5 h-3.5 md:w-4 md:h-4 transition-colors duration-500 text-foreground/80" />
-            <h4 className="text-[10px] md:text-xs font-sans uppercase tracking-[0.2em] font-semibold transition-colors duration-500 text-foreground">
+            <Sparkles className="w-3.5 h-3.5 md:w-4 md:h-4 transition-colors duration-500 text-primary" />
+            <h4 className="text-[10px] md:text-xs font-sans uppercase tracking-[0.2em] font-bold transition-colors duration-500 text-primary">
               Reversed Aspect
             </h4>
           </div>
-          <p className="text-sm md:text-base leading-relaxed font-light transition-colors duration-500 text-muted-foreground">
+          <p className="text-sm md:text-base leading-relaxed transition-colors duration-500 text-foreground">
             {card.reversedDescription}
           </p>
         </div>
